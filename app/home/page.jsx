@@ -1,7 +1,22 @@
+"use client";
 import React from "react";
 import { LuArrowLeftSquare, LuArrowRightSquare } from "react-icons/lu";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase/config";
+import { useRouter } from "next/navigation";
+import { signOut } from "firebase/auth";
 
 export default function page() {
+  const [user] = useAuthState(auth);
+  const router = useRouter();
+  const userSession = sessionStorage.getItem("user");
+
+  console.log({ user });
+
+  if (!user && !userSession) {
+    router.push("/");
+  }
+
   return (
     <div className="bg-[#192734] h-screen overflow-hidden">
       <div className="flex justify-between px-10 md:px-40 py-7">
@@ -11,9 +26,21 @@ export default function page() {
           </h1>
         </div>
         <div className="">
-          <h1 className="text-xl text-[#00B2FF] font-bold text-center">
+          <button
+            onClick={() => {
+              signOut(auth)
+                .then(() => {
+                  sessionStorage.removeItem("user");
+                  router.push("/");
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+            }}
+            className="text-xl text-[#00B2FF] font-bold text-center"
+          >
             Sign Out
-          </h1>
+          </button>
         </div>
       </div>
       <div className="border border-[#425568]"></div>

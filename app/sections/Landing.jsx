@@ -35,12 +35,12 @@ export default function Landing() {
                 Choose a sign-up method:
               </p>
               <div className="mt-10 gap-6 flex flex-col">
-                <button className="bg-transparent border border-[#425568] px-10 py-2 text-white text-[13.42px] md:text-base rounded-lg flex items-center">
+                <button className="bg-transparent border border-[#425568] px-7 md:px-10 py-2 text-white text-[12px] md:text-base rounded-lg flex items-center">
                   <FcGoogle className="mr-2" />
                   Sign Up with Google
                 </button>
                 <Link href="/sign-up">
-                  <button className="bg-transparent border border-[#425568] px-10 py-2 text-white text-[13.42px] md:text-base rounded-lg flex items-center">
+                  <button className="bg-transparent border border-[#425568] px-7 md:px-12 py-2 text-white text-[12px] md:text-base rounded-lg flex items-center">
                     <IoMail className="mr-2" />
                     Sign Up with Email
                   </button>

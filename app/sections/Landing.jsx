@@ -1,12 +1,44 @@
+"use client";
+import React, { useState, useEffect } from "react";
+
 import { FcGoogle } from "react-icons/fc";
 import { IoMail } from "react-icons/io5";
+
+import { UserAuth } from "../context/AuthContext";
 
 import { Poppins } from "next/font/google";
 import Link from "next/link";
 
+import { useRouter } from "next/navigation";
+
 const poppins = Poppins({ subsets: ["latin"], weight: "400" });
 
 export default function Landing() {
+  const { user, googleSignIn, logOut } = UserAuth();
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+  const handleSignIn = async () => {
+    try {
+      await googleSignIn();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    const checkAuthentication = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 50));
+      setLoading(false);
+    };
+    checkAuthentication();
+  }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      router.push("/home");
+    }
+  }, [user]);
+
   return (
     <div className={poppins.className}>
       <div className="flex flex-col md:flex-row overflow-hidden">
@@ -35,7 +67,10 @@ export default function Landing() {
                 Choose a sign-up method:
               </p>
               <div className="mt-10 gap-6 flex flex-col">
-                <button className="bg-transparent border border-[#425568] px-7 md:px-10 py-2 text-white text-[12px] md:text-base rounded-lg flex items-center">
+                <button
+                  onClick={handleSignIn}
+                  className="bg-transparent border border-[#425568] px-7 md:px-10 py-2 text-white text-[12px] md:text-base rounded-lg flex items-center"
+                >
                   <FcGoogle className="mr-2" />
                   Sign Up with Google
                 </button>

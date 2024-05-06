@@ -5,6 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase/config";
 import { useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
+import Link from "next/link";
 
 export default function page() {
   const [user] = useAuthState(auth);
@@ -20,11 +21,13 @@ export default function page() {
   return (
     <div className="bg-[#192734] h-screen overflow-hidden">
       <div className="flex justify-between px-10 md:px-40 py-7">
-        <div className="">
-          <h1 className="text-xl font-bold text-center">
-            Lo<span className="bg-[#00B2FF] rounded-xl p-1 ml-1.5">GO</span>
-          </h1>
-        </div>
+        <Link href="/">
+          <div>
+            <h1 className="text-xl font-bold text-center">
+              Lo<span className="bg-[#00B2FF] rounded-xl p-1 ml-1.5">GO</span>
+            </h1>
+          </div>
+        </Link>
         <div className="">
           <button
             onClick={() => {

@@ -2,10 +2,11 @@ import { FcGoogle } from "react-icons/fc";
 import { IoMail } from "react-icons/io5";
 
 import { Poppins } from "next/font/google";
+import Link from "next/link";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "400" });
 
-export default function SignUp() {
+export default function Landing() {
   return (
     <div className={poppins.className}>
       <div className="flex flex-col md:flex-row overflow-hidden">
@@ -38,14 +39,19 @@ export default function SignUp() {
                   <FcGoogle className="mr-2" />
                   Sign Up with Google
                 </button>
-                <button className="bg-transparent border border-[#425568] px-10 py-2 text-white text-[13.42px] md:text-base rounded-lg flex items-center">
-                  <IoMail className="mr-2" />
-                  Sign Up with Email
-                </button>
+                <Link href="/sign-up">
+                  <button className="bg-transparent border border-[#425568] px-10 py-2 text-white text-[13.42px] md:text-base rounded-lg flex items-center">
+                    <IoMail className="mr-2" />
+                    Sign Up with Email
+                  </button>
+                </Link>
               </div>
-              <p className="mt-20 -mb-[70px] text-xs">
-                Already a user? <span className="text-[#00B2FF]">Log in.</span>
-              </p>
+              <Link href="/sign-in">
+                <p className="mt-20 -mb-[70px] text-xs">
+                  Already a user?{" "}
+                  <span className="text-[#00B2FF]">Log in.</span>
+                </p>
+              </Link>
             </div>
           </div>
         </div>

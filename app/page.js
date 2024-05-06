@@ -1,10 +1,10 @@
 import Image from "next/image";
-import SignUp from "./sections/SignUp";
+import Landing from "./sections/Landing";
 
 export default function Home() {
   return (
     <>
-      <SignUp />
+      <Landing />
     </>
   );
 }

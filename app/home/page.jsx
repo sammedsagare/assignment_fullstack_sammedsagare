@@ -1,22 +1,20 @@
 "use client";
 import React from "react";
 import { LuArrowLeftSquare, LuArrowRightSquare } from "react-icons/lu";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase/config";
-import { useRouter } from "next/navigation";
-import { signOut } from "firebase/auth";
 import Link from "next/link";
+import { auth } from "../firebase/config";
+import { signOut } from "firebase/auth";
 
-export default function page() {
-  const [user] = useAuthState(auth);
-  const router = useRouter();
-  const userSession = sessionStorage.getItem("user");
-
-  console.log({ user });
-
-  if (!user && !userSession) {
-    router.push("/");
-  }
+function page() {
+  const handleSignOut = () => {
+    try {
+      signOut(auth);
+      console.log("logged out");
+      window.location.href = "/";
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="bg-[#192734] h-screen overflow-hidden">
@@ -30,16 +28,7 @@ export default function page() {
         </Link>
         <div className="">
           <button
-            onClick={() => {
-              signOut(auth)
-                .then(() => {
-                  sessionStorage.removeItem("user");
-                  router.push("/");
-                })
-                .catch((error) => {
-                  console.log(error);
-                });
-            }}
+            onClick={handleSignOut}
             className="text-xl text-[#00B2FF] font-bold text-center"
           >
             Sign Out
@@ -132,3 +121,4 @@ export default function page() {
     </div>
   );
 }
+export default page;
